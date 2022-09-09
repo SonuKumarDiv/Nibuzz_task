@@ -77,7 +77,10 @@ class Users_profile(APIView):
             
             f1=serializers.users_profile(data=request.POST)
             if f1.is_valid():    
-                f1.save()
+                user=f1.save()
+                if  'profile_pic' in request.FILES:
+                    user.profile_pic=request.FILES['profile_pic']
+                user.save()
                     
                 return Response({'success':'True',
                                         'error_msg':'',
